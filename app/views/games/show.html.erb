@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<%= image_tag(@game.thumbnail) if @game.thumbnail.attached? %>
+
 <p>
   <strong>Title:</strong>
   <%= @game.title %>
@@ -17,9 +19,10 @@
 
   <h3>This Game Belongs To <%= pluralize(@game.genres.count, 'Genre') %></h3>
   <% @game.genres.each do |genre| %>
-    <p><%= link_to genre.name, genre %></p>
+    <p><%= link_to genre.name, games_path(genre: genre.name) %></p>
   <% end %>
 
 
 <%= link_to 'Edit', edit_game_path(@game) %> |
+<%= link_to 'Delete', game_path(@game), method: :delete, data: {confirm: 'Are you sure?'} %>
 <%= link_to 'Back', games_path %>
