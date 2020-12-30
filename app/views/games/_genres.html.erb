@@ -2,7 +2,7 @@
 <div id="games">
   <% @games.each do |game| %>
     <% if game.thumbnail.attached? %>
-    <%= link_to image_tag(game.resized_thumbnail), game %>
+    <%= link_to image_tag(game.resized_thumbnail), game_path(game, genre: @genre_name, order: @order) %>
     <% else %>
     <div style="width: 240px; height: 135px">
       <%= link_to game.title, game %>

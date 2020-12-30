@@ -1,15 +1,17 @@
 class GamesController < ApplicationController
-  before_action :set_game, only: [:show, :edit, :update, :destroy]
+  before_action :set_game, only: [:show, :edit, :update, :destroy, :like]
   before_action :set_genres, except: [:show, :destroy]
+  before_action :is_admin!, except: [:index, :show, :like]
+  before_action :authenticate_user!, only: [:like]
 
   # GET /games
   # GET /games.json
   def index
-    set_games_and_genre_with_criteria(params[:genre], '')
+    set_order
   end
 
   def search
-    set_games_and_genre_with_criteria(params[:genre], params[:order])
+    set_order
   end
 
   # GET /games/1
@@ -66,6 +68,14 @@ class GamesController < ApplicationController
     end
   end
 
+  def like
+    if current_user.voted_for? @game
+      @game.unliked_by current_user
+    else
+      @game.liked_by current_user
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_game
@@ -81,6 +91,11 @@ class GamesController < ApplicationController
       params.require(:game).permit(:title, :review, :rating, :thumbnail, genre_ids: [])
     end
 
+    def set_order
+      set_games_and_genre_with_criteria(params[:genre], params[:order])
+    end
+
+
     def set_games_and_genre_with_criteria(requested_genre, requested_order)
       if requested_genre.nil? || requested_genre.eql?('All')
         games_by_genre = Game.all
@@ -89,6 +104,7 @@ class GamesController < ApplicationController
         games_by_genre = filter_games_by_genre(requested_genre)
         @genre_name = requested_genre
       end
+      @order = requested_order
       order_games(requested_order, games_by_genre)
     end
 
