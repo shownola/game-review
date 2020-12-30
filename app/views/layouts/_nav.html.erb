@@ -10,7 +10,12 @@
       <li class="nav-item active">
         <%= link_to 'Home', root_path, class: 'nav-link' %>
       </li>
-      
+      <% @featured.each do |genre| %>
+        <li class="nav-item">
+          <%= link_to genre.name, root_path(genre: genre.name), class: 'nav-link' %>
+        </li>
+      <% end %>
+
     </ul>
 
     <ul class="navbar-nav ml-auto">
