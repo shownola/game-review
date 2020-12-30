@@ -49,6 +49,9 @@
           <%= link_to @game.title, root_path(genre: params[:genre], order: params[:order]) %>
         <% end %>
       </h1>
+      <div class="container">
+        <%= @game.review %>
+      </div>
     </div>
   </div>
 </div>
