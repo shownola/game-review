@@ -1,24 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A game review app and has a search feature which uses some JavaScript. Image processing uses Active Storage
 
-Things you may want to cover:
+* Ruby version 2.6.3
 
-* Ruby version
+* Rails 6.0.3
 
-* System dependencies
+* Active Storage and image_processing gem for variants
 
-* Configuration
+* Search features utilizes JavaScript
 
-* Database creation
+* Join Table between games and genres
 
-* Database initialization
+* Voting functionality using act-as-votable gem
 
-* How to run the test suite
+* Rich Text is used for reviews
 
-* Services (job queues, cache servers, search engines, etc.)
+* Persistent parameters
 
-* Deployment instructions
+* Admin feature
+
+* Bootstrap for responsiveness
+
+* Devise for authentication and authorization
+
+* Simple Form for forms
 
 * ...
